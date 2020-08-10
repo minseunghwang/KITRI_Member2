@@ -112,7 +112,31 @@ public class JoinDaoImpl implements JoinDao{
 
 	@Override
 	public void delete(String id) {
-		// TODO Auto-generated method stub
+		Connection conn = null;
+		
+		String sql = "delete member2 where id = ?";
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = db.getConnection();
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, id);
+			
+			pstmt.executeUpdate();
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
 		
 	}
 

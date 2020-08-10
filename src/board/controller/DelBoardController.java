@@ -1,4 +1,4 @@
-package member.controller;
+package board.controller;
 
 import java.io.IOException;
 
@@ -8,23 +8,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import member.service.JoinService;
-import member.service.JoinServiceImpl;
-import model.Member;
+import board.service.Service;
+import board.service.ServiceImpl;
 
 /**
- * Servlet implementation class SearchController
+ * Servlet implementation class DelBoardController
  */
-@WebServlet("/SearchController")
-public class SearchController extends HttpServlet {
+@WebServlet("/DelBoardController")
+public class DelBoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchController() {
+    public DelBoardController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,17 +34,15 @@ public class SearchController extends HttpServlet {
 		request.setCharacterEncoding("euc-kr");
 		response.setContentType("text/html; charset=EUC-KR");
 		response.setCharacterEncoding("euc-kr");
+
+		Service service = new ServiceImpl();
 		
-		JoinService service = new JoinServiceImpl();
+		int num = Integer.parseInt(request.getParameter("num"));
 		
-		HttpSession session = request.getSession(false);
+		service.delBoard(num);
 		
-		String id = (String) session.getAttribute("id");
-		
-		Member m = service.getMember(id);
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/member/memberInfo.jsp");
-		if(dispatcher != null) {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/board/result.jsp");
+		if (dispatcher != null) {
 			dispatcher.forward(request, response);
 		}
 	}

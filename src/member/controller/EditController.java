@@ -47,7 +47,7 @@ public class EditController extends HttpServlet {
 		
 		service.editMember(m);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/member/memberInfo.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/member/result.jsp");
 		if(dispatcher != null) {
 			dispatcher.forward(request, response);
 		}
